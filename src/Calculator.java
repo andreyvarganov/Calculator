@@ -1,6 +1,6 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import javax.swing.*;
+import java.awt.event.*;
 
 public class Calculator {
 
@@ -49,7 +49,8 @@ public class Calculator {
                         break;
                     }
                 }
-
+                GUI gui = new GUI();
+                gui.go();
                 print();
             }
         } catch (IOException e){
@@ -80,4 +81,5 @@ public class Calculator {
     public static void print() {
         System.out.printf("Answer is %.2f\n\n", result);
     }
+
 }
