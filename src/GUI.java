@@ -1,81 +1,51 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.*;
 
 public class GUI {
 
-    private JFrame frame;
-    private JPanel panel;
-    private JLabel text;
-    private ArrayList<JButton> numberButtonArray;
     private ArrayList<JButton> signButtonArray;
-    public static String result = "";
-    private static String curr = "";
 
-    public void go() {
+    public void createGUI() {
+
         // create main frame //
-        frame = new JFrame("Simple Calculator");
+        JFrame frame = new JFrame("Simple Calculator");
 
-        text = new JLabel("Result: ");
-        Font font = new Font("Tahoma", Font.BOLD, 30);
-        text.setFont(font);
-        frame.getContentPane().add(text, BorderLayout.NORTH);
+        // create output window //
+        JTextField output = new JTextField();
+        output.setToolTipText("Result");
+        output.setFont(new Font("Times New Roman", Font.BOLD, 30));
+        frame.getContentPane().add(output, BorderLayout.NORTH);
 
-        // create panel of number buttons and set its color //
-        JPanel numberButtonsPanel = new JPanel();
-        numberButtonsPanel.setBackground(Color.LIGHT_GRAY);
+        // create panel of buttons//
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setBackground(Color.LIGHT_GRAY);
 
-        // create number buttons (array of buttons) //
-        numberButtonArray = new ArrayList<>();
+        // create array of buttons and adding it on the panel //
+        ArrayList<JButton> buttonArray = new ArrayList<>();
+        char[] operations = {'+', '-', '*', '/', '%', '='};
+        JButton button;
+        int j = 0;
 
-        for (int i = 0; i < 10; i++) {
-            JButton button = new JButton("" + i);
-            numberButtonArray.add(button);
+        for (int i = 0; i < 16; i++) {
+            if (i < 9) {
+                button = new JButton("" + (i + 1));
+                buttonArray.add(button);
+            }
+            else if (i == 9) {
+                button = new JButton("" + 0);
+                buttonArray.add(button);
+            }
+            else {
+                button = new JButton("" + operations[j++]);
+                buttonArray.add(button);
+            }
             button.setPreferredSize(new Dimension(50, 50));
-            numberButtonsPanel.add(numberButtonArray.get(i));
-            int finalI = i;
-            numberButtonArray.get(i).addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    curr += finalI;
-                    text.setText(curr);
-                    result += curr;
-                }
-            });
+            buttonsPanel.add(buttonArray.get(i));
         }
 
-        // set it on the frame //
-        frame.getContentPane().add(numberButtonsPanel, BorderLayout.CENTER);
-
-        // create panel of sign buttons and set its color
-        JPanel signButtonsPanel = new JPanel();
-        signButtonsPanel.setBackground(Color.LIGHT_GRAY);
-        signButtonsPanel.setLayout(new BoxLayout(signButtonsPanel, BoxLayout.X_AXIS));
-
-        // create sign buttons (array of buttons) //
-        signButtonArray = new ArrayList<>();
-        char[] chars = new char[]{'+', '-', '*', '/', '%', '='};
-        for (int i = 0; i < chars.length; i++) {
-            JButton button = new JButton("" + chars[i]);
-            signButtonArray.add(button);
-            button.setPreferredSize(new Dimension(75, 75));
-            signButtonsPanel.add(signButtonArray.get(i));
-            int finalI = i;
-            signButtonArray.get(i).addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    curr = "";
-                    curr += chars[finalI];
-                    text.setText(curr);
-                    curr = "";
-                }
-            });
-        }
-
-        // add singPanel on frame //
-        frame.getContentPane().add(signButtonsPanel, BorderLayout.SOUTH);
+        // set our panel on the frame //
+        frame.getContentPane().add(buttonsPanel, BorderLayout.CENTER);
 
         // frame settings //
         Toolkit toolkit = Toolkit.getDefaultToolkit();
