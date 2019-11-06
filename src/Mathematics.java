@@ -1,30 +1,22 @@
 public class Mathematics  {
-    public static String result = "";
-    public static int value1;
-    public static int value2;
 
+    public static String addition(int value1, int value2) {
+        return "" + (value1 + value2);
+    }
 
-//    public static void addition() {
-//        result = value1 + value2;
-//    }
-//
-//    public static void subtraction() {
-//        result = value1 - value2;
-//    }
-//
-//    public static void multiplication() {
-//        result = value1 * value2;
-//    }
-//
-//    public static void division() {
-//        result = (double) value1 / value2;
-//    }
-//
-//    public static void mod() {
-//        result = value1 % value2;
-//    }
+    public static String subtraction(int value1, int value2) {
+        return "" + (value1 - value2);
+    }
 
-    public static void print() {
-        System.out.printf("Answer is %.2f\n\n", result);
+    public static String multiplication(int value1, int value2) {
+        return "" + (value1 * value2);
+    }
+
+    public static String division(int value1, int value2) {
+        return "" + (double) value1 / value2;
+    }
+
+    public static String mod(int value1, int value2) {
+        return "" + (value1 % value2);
     }
 }
