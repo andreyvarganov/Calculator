@@ -1,10 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 
 public class GUI {
 
-    private ArrayList<JButton> signButtonArray;
+    private static JTextField output;
+    private static String result = "";
 
     public void createGUI() {
 
@@ -12,7 +15,7 @@ public class GUI {
         JFrame frame = new JFrame("Simple Calculator");
 
         // create output window //
-        JTextField output = new JTextField();
+        output = new JTextField();
         output.setToolTipText("Result");
         output.setFont(new Font("Times New Roman", Font.BOLD, 30));
         frame.getContentPane().add(output, BorderLayout.NORTH);
@@ -40,6 +43,7 @@ public class GUI {
                 button = new JButton("" + operations[j++]);
                 buttonArray.add(button);
             }
+            button.addActionListener(new NumberButtonListener());
             button.setPreferredSize(new Dimension(50, 50));
             buttonsPanel.add(buttonArray.get(i));
         }
@@ -53,5 +57,21 @@ public class GUI {
         frame.setBounds(dimension.width /2 - 150, dimension.height / 2 - 150, 300, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+    }
+
+    class NumberButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String number;
+            JButton button;
+            button = (JButton) e.getSource();
+            number = button.getText();
+            output.setText(number);
+            if (!number.equals("=")) result += number;
+            else {
+                Handler.separate(result);
+                output.setText(Handler.calculate());
+            }
+        }
     }
 }
